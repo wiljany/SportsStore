@@ -1,18 +1,21 @@
-﻿@using SportsStore.Domain.Entities
-@model IEnumerable<Product>
+﻿@model SportsStore.WebUI.Models.ProductListViewModel
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Products";
 }
 
-@foreach (var p in Model)
+@foreach (var p in Model.Products)
 {
-    <div>
-        <h3>Name = @p.Name</h3>
-        <h4>Desc = @p.Description</h4>
-        <h4>Price = @p.Price.ToString("c")</h4>
-        <h4>Category = @p.Category</h4>
-        <h4>===============================</h4>
+    <div class="card p-3 bg-light text-dark mb-2">
+		<h3>
+			<strong>@p.Name</strong>
+			<span class="badge bg-primary float-end">@p.Price.ToString("c")</span>
+		</h3>
+		<span class="lead">@p.Description</span>
     </div>
 }
+
+<div class="btn-group float-end">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { Page = x }))
+</div>
 

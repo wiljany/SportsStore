@@ -3,11 +3,24 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="~/Content/bootstrap.css" rel="stylesheet" />
 		<title>@ViewBag.Title</title>
 	</head>
-		<body>
-			<div class="container body-content">
-				@RenderBody()
+
+	<body>
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand ms-4" href="#">SPORTS STORE</a>
+
+		</nav>
+		<div class="row border p-3">
+			<div id="categories" class="col-3">
+				Put something later
+
 			</div>
-		</body>
+		</div>
+
+		<div class="col-8">
+			@RenderBody()
+		</div>
+	</body>
 </html>

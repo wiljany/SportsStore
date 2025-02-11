@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
 {
@@ -18,9 +19,34 @@ namespace SportsStore.WebUI.Controllers
         }
 
         // GET: Product
-        public ViewResult List()
+
+        public int PageSize = 2;
+        public ViewResult List(int page = 1)
         {
-            return View(myrepository.Products);
-        }
+            // Skip(int) - Ignores the specified number of items
+            // and returns a sequence starting at the item after the last skipped item (if any)
+            ProductListViewModel model = new ProductListViewModel
+            {
+                Products = myrepository.Products.OrderBy(p => p.ProductId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemPerPage = PageSize,
+                    TotalItems = myrepository.Products.Count()
+                }
+
+            };
+			
+            return View(model);
+
+			// Take() returns a sequence containing up to the specified number of items
+		}
+        //public ViewResult List()
+        //{
+        //    return View(myrepository.Products);
+        //}
     }
 }
