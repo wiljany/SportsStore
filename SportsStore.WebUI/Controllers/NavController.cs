@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportsStore.Domain.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,20 @@ namespace SportsStore.WebUI.Controllers
 {
     public class NavController : Controller
     {
-        public string Menu()
+        private IProductsRepository repository;
+
+        public NavController(IProductsRepository repo)
         {
-            return "hi menu";
+            repository = repo;
+        }
+
+        public PartialViewResult Menu(string Category = null)
+        {
+            ViewBag.SelectedCategory = Category;
+            IEnumerable<string> categories = repository.Products.Select(x => x.Category)
+                .Distinct()
+                .OrderBy(x => x);
+            return PartialView(categories);
         }
     }
 }
