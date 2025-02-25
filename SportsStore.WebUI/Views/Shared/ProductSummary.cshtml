@@ -7,4 +7,10 @@
 		</span>
 	</h3>
 	<span class="lead">@Model.Description</span>
+	@using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+	{
+		@Html.HiddenFor(x => x.ProductId)
+		@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+		<button type="button" class="btn btn-outline-success"> Add to cart </button>
+	}
 </div>

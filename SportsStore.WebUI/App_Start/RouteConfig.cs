@@ -30,16 +30,24 @@ namespace SportsStore.WebUI
                 page = 1
             });
 
-            // page 2 - list the specified page
-            // showing items from all categories
-			routes.MapRoute(null, "", new
-			{
+            routes.MapRoute(null, "Page{page}", new
+            {
 				controller = "Product",
 				action = "List",
 				category = (string)null,
-				
 			},
-            new { page = @"\d+"});
+			new {page = @"\d+"});
+
+            // page 2 - list the specified page
+            // showing items from all categories
+			//routes.MapRoute(null, "", new
+			//{
+			//	controller = "Product",
+			//	action = "List",
+			//	category = (string)null,
+				
+			//},
+   //         new { page = @"\d+"});
 
             routes.MapRoute(null, "{category}", new
             {
@@ -53,7 +61,7 @@ namespace SportsStore.WebUI
                 controller = "Product",
                 action = "List",
             },
-            new { page = @"\d+" });
+            new {page = @"\d+"});
             routes.MapRoute(null, "{controller}/{action}");
 
 			//routes.MapRoute(
