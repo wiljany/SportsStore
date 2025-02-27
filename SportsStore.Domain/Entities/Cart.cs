@@ -16,7 +16,7 @@ namespace SportsStore.Domain.Entities
 	public class Cart
 	{
 		private List<CartLine> lineCollection = new List<CartLine>();
-		public IEnumerable<CartLine> LineCollection
+		public IEnumerable<CartLine> Lines
 		{
 			get { return lineCollection; }
 		}
@@ -24,7 +24,7 @@ namespace SportsStore.Domain.Entities
 		// add item
 		public void AddItem(Product myProduct, int myQuantity)
 		{
-			CartLine line = LineCollection
+			CartLine line = lineCollection
 				.Where(p => p.Product.ProductId == myProduct.ProductId)
 				.FirstOrDefault();
 
