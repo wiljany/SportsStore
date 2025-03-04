@@ -18,45 +18,46 @@ namespace SportsStore.WebUI.Controllers
         }
 
         // get cart
-        private Cart GetCart()
-        {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
-        }
+        //private Cart GetCart()
+        //{
+        //    Cart cart = (Cart)Session["Cart"];
+        //    if (cart == null)
+        //    {
+        //        cart = new Cart();
+        //        Session["Cart"] = cart;
+        //    }
+        //    return cart;
+        //}
 
         // add to cart
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products.FirstOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
         // remove from cart
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
 			Product product = repository.Products.FirstOrDefault(p => p.ProductId == productId);
 
-			if (product == null)
+			if (product != null)
 			{
-				GetCart().RemoveLine(product);
+				cart.RemoveLine(product);
 			}
-			return RedirectToRoute("Index", new { returnUrl });
+			return RedirectToAction("Index", new { returnUrl });
 		}
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel 
             {
-                Cart = GetCart(),
-                ReturnUrl = returnUrl
+                // Cart = GetCart(),
+                ReturnUrl = returnUrl,
+                Cart = cart
             });
         }
     }
