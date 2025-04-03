@@ -1,6 +1,18 @@
 ﻿@model SportsStore.Domain.Entities.Product
 
 @{
+	var operationText = "";
+	if (ViewBag.operation == "Create")
+	{
+		operationText = "Add New Product";
+	}
+	else
+	{
+		operationText = "Edit " + Model.Name;
+	}
+}
+
+@{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -8,7 +20,7 @@
 <div class="container mt-3">
 	<div class="card">
 		<div class="card-header">
-			<h2>Edit @Model.Name</h2>
+			<h2>@operationText</h2>
 		</div>
 		@using (Html.BeginForm("Edit", "Admin"))
 		{
