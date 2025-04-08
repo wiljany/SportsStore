@@ -12,6 +12,8 @@ using Moq;
 using SportsStore.Domain.Concrete;
 using System.Configuration;
 using static SportsStore.Domain.Concrete.EmailOrderProcessor;
+using SportsStore.WebUI.Infrastructure.Abstract;
+using SportsStore.WebUI.Infrastructure.Concrete;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -56,6 +58,8 @@ namespace SportsStore.WebUI.Infrastructure
 			mykernel.Bind<IOrderProcessor>()
 				.To<EmailOrderProcessors>()
 				.WithConstructorArgument("settings", emailSettings);
+
+			mykernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
 		}
 	}
 }
