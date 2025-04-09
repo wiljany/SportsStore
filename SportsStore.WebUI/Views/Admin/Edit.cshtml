@@ -22,31 +22,44 @@
 		<div class="card-header">
 			<h2>@operationText</h2>
 		</div>
-		@using (Html.BeginForm("Edit", "Admin"))
+		@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{
 			<div class="card-body">
 				@Html.HiddenFor(m => m.ProductId)
 
 				@foreach (var property in ViewData.ModelMetadata.Properties)
 				{
-					if (property.PropertyName != "ProductId")
+					switch (property.PropertyName)
 					{
+						case "ProductId":
+						case "ImageData":
+						case "ImageMimeType":
+						break;
+
+						default:
+
 						<div class="mb-3">
-							<label class="form-label">
-								@(property.DisplayName ?? property.PropertyName)
-							</label>
-						@if (property.PropertyName == "Description") 
-						{
-							@Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
-						}
+						<label class="form-label">
+							@(property.DisplayName ?? property.PropertyName)
+						</label>
+						@if(property.PropertyName == "Description")
+							{
+								@Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
+							}
 						else
-						{
-							@Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
-						}
-						
+							{
+								@Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+							}
+
 						@Html.ValidationMessage(property.PropertyName)
 
-						</div>
+					</div>
+					break;
+					}
+
+					if (property.PropertyName != "ProductId")
+					{
+
 					}
 				}
 			</div>

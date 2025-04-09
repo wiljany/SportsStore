@@ -10,6 +10,26 @@
         <div class="card-header">
             <h3>Log in</h3>
         </div>
+		<div class="card-body">
+			<p class="lead">
+				Please log in to access the Admin!
+			</p>
+			@using (Html.BeginForm())
+			{
+				@Html.ValidationSummary()
+				<div class="mb-3">
+					<label for="UserName" class="form-label">User Name: </label>
+					@Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "UserName" })
+				</div>
+
+				<div class="mb-3">
+					<label for="Password" class="form-label">Password: </label>
+					@Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "Password" })
+				</div>
+
+				<button class="btn btn-primary" type="submit">Login</button>
+			}
+		</div>
     </div>
 </div>
 
