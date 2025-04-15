@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
 
 namespace SportsStore.WebUI.Controllers
@@ -50,6 +51,19 @@ namespace SportsStore.WebUI.Controllers
 
 			// Take() returns a sequence containing up to the specified number of items
 		}
+
+        public FileContentResult GetImage(int productId)
+        {
+            Product prod = myrepository.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (prod != null)
+            {
+                return File(prod.ImageData, prod.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
         //public ViewResult List()
         //{
         //    return View(myrepository.Products);
